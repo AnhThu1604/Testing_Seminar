@@ -1,0 +1,128 @@
+create database CourseSystem; 
+use CourseSystem; 
+
+CREATE TABLE Users(
+    username VARCHAR(50) NOT NULL primary key ,
+    passUser varchar(20) NOT NULL,
+    role int(1)
+);
+CREATE TABLE Teacher(
+    idTeacher varchar(11) not null primary key,
+    nameTeacher varchar(50),
+    username VARCHAR(50) NOT NULL ,
+    passwordTC varchar(20) NOT NULL,
+    email VARCHAR (50)
+);
+CREATE TABLE ClassSubject(
+    idClass varchar(11) NOT NULL PRIMARY KEY,
+    nameClass VARCHAR(50) NOT NULL 
+);
+
+CREATE TABLE Student(
+    idStudent varchar(11) not null primary key,
+    nameStudent varchar(50),
+    username VARCHAR(50) NOT NULL ,
+    passwordST varchar(20) NOT NULL,
+    email VARCHAR (50),
+	idClass varchar(11),
+    gender int(1),
+	FOREIGN KEY (idClass) REFERENCES ClassSubject(idClass)
+);
+
+CREATE TABLE Subjects(
+    idSubject varchar(11) NOT NULL PRIMARY KEY,
+    nameSubject varchar(50),
+    credits int(3)
+);
+
+CREATE TABLE Semester(
+    idSemester varchar(11) NOT NULL PRIMARY KEY,
+    nameSemester varchar(50),
+    yearSemester varchar(11),
+    startDay Date,
+    endDay Date,
+    state int
+);
+CREATE TABLE CourseSession(
+    idSession varchar(11) NOT NULL primary key,
+    idSemester varchar(11) ,
+    nameSession VARCHAR (50),
+	startDay Date,
+    endDay Date,
+    FOREIGN KEY (idSemester) REFERENCES Semester(idSemester)
+);
+
+CREATE TABLE CourseOpen(
+    idCourse varchar(11) NOT NULL PRIMARY KEY,
+    idSubject varchar(11),
+    teacher varchar(50),
+    idSemester varchar(11),
+    room varchar(10),
+    dayCourse varchar(11),
+    studyTime varchar(20),
+    slots int(3),
+    FOREIGN KEY (idSemester) REFERENCES Semester(idSemester),
+    FOREIGN KEY (idSubject) REFERENCES Subjects(idSubject)
+);
+
+
+
+
+CREATE TABLE CourseRegistration(
+	id int not null primary key auto_increment,
+    idCourse varchar(11),
+    idStudent varchar(11),
+    idSemester varchar(11),
+    timeRegistration datetime,
+    FOREIGN KEY (idCourse) REFERENCES courseopen(idCourse),
+    FOREIGN KEY (idSemester) REFERENCES semester(idSemester),
+	FOREIGN KEY (idStudent) REFERENCES Student(idStudent)
+);
+
+
+
+INSERT INTO coursesystem.users VALUES ("GV1001","GV1001",0);
+INSERT INTO coursesystem.users VALUES ("GV1002","GV1002",0);
+INSERT INTO coursesystem.users VALUES ("GV1003","GV1003",0);
+INSERT INTO coursesystem.users VALUES ("GV1004","GV1004",0);
+INSERT INTO coursesystem.users VALUES ("GV1005","GV1005",0);
+
+INSERT INTO coursesystem.users VALUES ("18120588","18120588",1);
+INSERT INTO coursesystem.users VALUES ("18120615","18120615",1);
+INSERT INTO coursesystem.users VALUES ("19120619","19120618",1);
+INSERT INTO coursesystem.users VALUES ("18120606","18120606",1);
+INSERT INTO coursesystem.users VALUES ("18120604","18120604",1);
+INSERT INTO coursesystem.users VALUES ("19120123","19120123",1);
+INSERT INTO coursesystem.users VALUES ("20120588","20120588",1);
+INSERT INTO coursesystem.users VALUES ("20120587","20120587",1);
+
+INSERT INTO coursesystem.teacher VALUES ("GV1001","Nguyễn Văn A","GV1001","GV1001","GV1001@hcmus.edu.vn");
+INSERT INTO coursesystem.teacher VALUES ("GV1002","Nguyễn Văn B","GV1002","GV1002","GV1002@hcmus.edu.vn");
+INSERT INTO coursesystem.teacher VALUES ("GV1003","Vũ Văn C","GV1003","GV1003","GV1003@hcmus.edu.vn");
+
+
+INSERT INTO coursesystem.classsubject VALUES ("CNTN19001","19CTT1");
+INSERT INTO coursesystem.classsubject VALUES ("DTVT19001","19DTVT1");
+INSERT INTO coursesystem.classsubject VALUES ("DTVT19002","19DTVT2");
+INSERT INTO coursesystem.classsubject VALUES ("HH18001","18HOH1");
+INSERT INTO coursesystem.classsubject VALUES ("CNTN2001","20CNTN");
+INSERT INTO coursesystem.classsubject VALUES ("MT2001","20MT1");
+INSERT INTO coursesystem.classsubject VALUES ("HH19001","19HOH1");
+INSERT INTO coursesystem.classsubject VALUES ("MT2002","20MT2");
+
+INSERT INTO coursesystem.student VALUES ("18120588","Cam Vọng Tinh","18120588","18120588","18120588@student.hcmus.edu.vn","HH18001",1);
+INSERT INTO coursesystem.student VALUES ("18120615","Trương Hân Nghiêu","18120615","18120615","18120615@student.hcmus.edu.vn","CNTN18002",0);
+INSERT INTO coursesystem.student VALUES ("19120619","Nguyễn Hữu Phú","19120619","19120619","19120619@student.hcmus.edu.vn","CNTN19001",0);
+
+INSERT INTO coursesystem.subjects VALUES ("CSN003","Mạng Máy Tính",4);
+INSERT INTO coursesystem.subjects VALUES ("CNTC001","Lập trình ứng dụng Java",4);
+INSERT INTO coursesystem.subjects VALUES ("MTH002","Toán Tổ Hợp",3);
+INSERT INTO coursesystem.subjects VALUES ("MTH003","Phương pháp tính",4);
+INSERT INTO coursesystem.subjects VALUES ("VL001","Vật lý đại cương 1",3);
+INSERT INTO coursesystem.subjects VALUES ("TCBB001","Tâm Lý Đại Cườn",2);
+INSERT INTO coursesystem.subjects VALUES ("CSN004","Thiết kế phần mềm",4);
+INSERT INTO coursesystem.subjects VALUES ("TCBB002","Kinh tế đại cương",2);
+
+
+
+
